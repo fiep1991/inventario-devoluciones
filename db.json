@@ -1,0 +1,44 @@
+{
+  "devoluciones": [
+    {
+      "fecha": "2026-04-06",
+      "cliente": "MEGA",
+      "producto": "acido sulfanilico",
+      "codigo": "001.0000410",
+      "lote": "10100045245",
+      "estado": "buen estado",
+      "cantidad": 1,
+      "observaciones": "afafga",
+      "imagenes": [],
+      "etapa": "recepcion",
+      "id": "uakLffLvJns"
+    },
+    {
+      "fecha": "2026-04-03",
+      "cliente": "curtiembres",
+      "producto": "amarillo py 14",
+      "codigo": "001.0000226",
+      "lote": "20100002953",
+      "estado": "mal estado",
+      "cantidad": 2,
+      "observaciones": "",
+      "imagenes": {},
+      "etapa": "recepcion",
+      "id": "qodhrV_47OY"
+    },
+    {
+      "fecha": "2026-04-07",
+      "cliente": "Postobon",
+      "producto": "acido citrico",
+      "codigo": "001.0000216",
+      "lote": "10998361253",
+      "estado": "buen estado",
+      "cantidad": 5,
+      "observaciones": "buen estado, sellado",
+      "imagenes": {},
+      "etapa": "recepcion",
+      "id": "w8TQuZBsuhA"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
