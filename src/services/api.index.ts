@@ -1,8 +1,6 @@
-// Este archivo decide qué API usar según el entorno
+import { devolucionesAPI as devolucionesAPIReal } from './api';
+import { devolucionesAPIMock } from './api.mock';
+
 const isProduction = import.meta.env.PROD;
 
-// En desarrollo (local) usa json-server
-// En producción (Vercel) usa mock con localStorage
-export const devolucionesAPI = isProduction
-    ? (await import('./api.mock')).devolucionesAPIMock
-    : (await import('./api')).devolucionesAPI;
+export const devolucionesAPI = isProduction ? devolucionesAPIMock : devolucionesAPIReal;
