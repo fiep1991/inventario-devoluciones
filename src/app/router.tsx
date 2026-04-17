@@ -8,24 +8,24 @@ import { Calidad } from "../features/landing/pages/Calidad"
 
 export const router = createBrowserRouter([
     {
-        element: <MainLayout />, // layout padre
+        element: <MainLayout />, 
         children: [
 
             {
                 path: "/",
-                element: <LandingPage /> // rutas 
+                element: <LandingPage /> 
             },
             {
                 path: "/coordinador",
-                element: <Coordinador/> // rutas 
+                element: <Coordinador/>  
             },
             {
                 path: "/recepcion",
-                element: <Recepcion /> // rutas 
+                element: <Recepcion /> 
             },
             {
                 path: "/calidad",
-                element: <Calidad /> // rutas 
+                element: <Calidad /> 
             },
         ]
     }
