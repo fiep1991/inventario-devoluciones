@@ -1,33 +1,39 @@
 import type { UseFormRegisterReturn } from 'react-hook-form';
 
-
 interface Props {
-    etiqueta: string,
-    tipo: string,
-    id: string,
-    placeholder?: string,
-    className?:string,
-    accept?: string,  
-    multiple?: boolean,
-    register: UseFormRegisterReturn; 
-    error?: boolean,
-
+    etiqueta: string;
+    tipo: string;
+    id: string;
+    placeholder?: string;
+    className?: string;
+    accept?: string;
+    multiple?: boolean;
+    register: UseFormRegisterReturn;
+    error?: boolean;
 }
 
-export const Inputs = ({etiqueta, tipo, id, placeholder, className="",accept, multiple, register, error}:Props) => {
-
-    const borderClass = error ? 'border-red-700' : 'border-morado';
-
+export const Inputs = ({ etiqueta, tipo, id, placeholder, className, accept, multiple, register, error }: Props) => {
     return (
-        <div className={`${className}`}>
-            <label htmlFor={id} className="w-24 inline-block text-right text-sm font-bold text-gris pr-2 font">
+        <div className={`${className || ''}`}>
+            <label htmlFor={id} className="block text-gray-700 font-medium text-sm mb-1">
                 {etiqueta}:
             </label>
+            
             {tipo === 'textarea' ? (
                 <textarea
                     id={id}
                     placeholder={placeholder}
-                    className={`${borderClass} rounded-xl px-4 bg-amber-50 flex-1 min-h-25 py-2 focus:border-naranja outline-none`}
+                    className={`w-full px-3 py-2 border ${error ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-sm`}
+                    rows={3}
+                    {...register}
+                />
+            ) : tipo === 'file' ? (
+                <input
+                    type="file"
+                    id={id}
+                    accept={accept}
+                    multiple={multiple}
+                    className={`w-full px-3 py-2 border ${error ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-sm file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100`}
                     {...register}
                 />
             ) : (
@@ -35,12 +41,10 @@ export const Inputs = ({etiqueta, tipo, id, placeholder, className="",accept, mu
                     type={tipo}
                     id={id}
                     placeholder={placeholder}
-                    accept={accept}
-                    multiple={multiple}
-                    className={`${borderClass} border rounded-xl px-4 bg-amber-50 flex-1 min-h-10 py-2 focus:border-naranja outline-none`}
+                    className={`w-full px-3 py-2 border ${error ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-sm`}
                     {...register}
                 />
             )}
         </div>
-    )
-}
+    );
+};
