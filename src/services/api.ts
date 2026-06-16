@@ -7,5 +7,5 @@ const api = axios.create({
 export const devolucionesAPI = {
     getByetapa: (etapa: string) => api.get(`/devoluciones?etapa=${etapa}`), // se hace GET a la etapa de recepción
     create: (data: any) => api.post('/devoluciones', data),  // crea una nueva devolución
-    update: (id: number, data: any) => api.patch(`/devoluciones/${id}`, data), // Se actualiza la etapa rececpión a coordinador cuanto la verifica
+    update: (id: string, data: any) => api.patch(`/devoluciones/${id}`, data), // Se actualiza la etapa rececpión a coordinador cuanto la verifica
 }

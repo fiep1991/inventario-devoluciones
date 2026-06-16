@@ -1,8 +1,9 @@
 import { Inputs } from "./components/forms/Inputs";
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { devolucionesAPI } from "../../services/api";
+import { devolucionesAPI } from "../../services/api.index";
 import { useState } from "react";
+
 
 type FormData = {
     fecha: string;
