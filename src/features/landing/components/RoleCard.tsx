@@ -1,41 +1,31 @@
 import { useNavigate } from "react-router-dom";
-import { Boton } from "../../../components/ui/Button";
 
-
-
-interface Props{
+interface Props {
     icono: string;
     titulo: string;
     descripcion: string;
     to: string;
 }
 
-export const RoleCard = ({icono, titulo, descripcion,to}: Props) => {
-
+export const RoleCard = ({ icono, titulo, descripcion, to }: Props) => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-[#C4C4C4] rounded-2xl shadow-xl/30 p-8 w-87 h-137.5 grid grid-rows-[auto_auto_1fr_auto] gap-2  ">
-
-            <div className="flex justify-center items-center pb-2.5 ">
-                <img src={icono} alt={titulo} className="size-45 "/>
+        <div 
+            onClick={() => navigate(to)}
+            className="group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer w-72 h-full flex flex-col items-center text-center p-6"
+        >
+            <div className="bg-purple-100 rounded-full p-4 mb-4 group-hover:bg-purple-200 transition-colors">
+                <img src={icono} alt={titulo} className="w-16 h-16" />
             </div>
 
-            <div className="text-center pb-2.5">
-                <h1 className="font-bold text-2xl">{titulo}</h1>
-            </div>
+            <h2 className="text-xl font-bold text-gray-800 mb-2">{titulo}</h2>
 
-            <div className="flex flex-col justify-between text-center font-bold text-gray-700 ">
-                <p>{descripcion}</p>
-            </div>
+            <p className="text-gray-500 text-sm mb-6 flex-grow">{descripcion}</p>
 
-            <div> 
-                <Boton texto="Ingresar" size="full" onClick={()=> navigate(to)} />
-                
-            </div>
-            
+            <button className="text-purple-600 font-semibold hover:text-purple-800 transition-colors">
+                Ingresar →
+            </button>
         </div>
-    )
-}
-
-
+    );
+};

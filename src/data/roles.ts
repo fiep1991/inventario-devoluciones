@@ -5,23 +5,23 @@ import iconrece from "../features/landing/components/assets/icons/icono-recepcio
 export const roles = [
     {
         id: 1,
-        icono: iconcoor,
-        titulo: "Coordinador Transporte",
-        descripcion: "Reportes de devolución que van a ser entregadas.",
-        ruta: "coordinador"
+        icono: iconrece,
+        titulo: "Recepción",
+        descripcion: "Reporte de ingresos de Devolución.",
+        ruta: "/recepcion"
     },
     {
         id: 2,
-        icono: iconrece,
-        titulo: "Recepción",
-        descripcion: "Reportes de ingresos de Devoluciones.",
-        ruta: "recepcion"
+        icono: iconcoor,
+        titulo: "Coordinador Transporte",
+        descripcion: "Reportes de devolución pendientes.",
+        ruta: "/coordinador"
     },
     {
         id: 3,
         icono: iconcali,
         titulo: "Control Calidad",
-        descripcion: "Disposición de las devoluciones.",
-        ruta: "calidad"
+        descripcion: "Disposición de calidad devoluciones.",
+        ruta: "/calidad"
     },
 ];
