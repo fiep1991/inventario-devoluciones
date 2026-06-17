@@ -2,6 +2,7 @@ import { PageTitle } from "../../../components/ui/PageTitle"
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { devolucionesAPI } from "../../../services/api.index";
 import { useState } from "react";
+import { ModalDevolucion } from "../../../components/ui/ModalDevolucion"
 
 export const Coordinador = () => {
 
@@ -9,6 +10,8 @@ export const Coordinador = () => {
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editedValues, setEditedValues] = useState<{ [key: string]: any }>({});
     const [errors, setErrors] = useState<{ [key: string]: { [field: string]: string | null } }>({});
+    const [modalAbierto, setModalAbierto] = useState(false);
+    const [devolucionSeleccionada, setDevolucionSeleccionada] = useState<any>(null);
 
     // VALIDACIONES
     const validateCodigo = (codigo: string) => {
@@ -77,6 +80,12 @@ export const Coordinador = () => {
         }));
     };
 
+    // Función para abrir el modal (FUERA de handleSave)
+    const abrirModal = (devolucion: any) => {
+        setDevolucionSeleccionada(devolucion);
+        setModalAbierto(true);
+    };
+
     const handleSave = (id: string) => {
         const erroresFila = errors[id];
         if (erroresFila && Object.keys(erroresFila).some(key => erroresFila[key])) {
@@ -139,7 +148,22 @@ export const Coordinador = () => {
                     </thead>
                     <tbody className="divide-y divide-outline-variant/5">
                         {devoluciones.map((dev: any) => (
-                            <tr key={dev.id} className="border-b hover:bg-gray-100">
+                            <tr
+                                key={dev.id}
+                                onClick={(e) => {
+                                    const target = e.target as HTMLElement;
+                                    if (
+                                        target.closest('button') ||
+                                        target.closest('input') ||
+                                        target.closest('textarea') ||
+                                        target.closest('select')
+                                    ) {
+                                        return;
+                                    }
+                                    abrirModal(dev);
+                                }}
+                                className="border-b hover:bg-gray-50 transition-colors cursor-pointer"
+                            >
 
                                 {/* FECHA */}
                                 <td className="p-2">
@@ -336,6 +360,13 @@ export const Coordinador = () => {
                     </tbody>
                 </table>
             )}
+
+            <ModalDevolucion
+                devolucion={devolucionSeleccionada}
+                isOpen={modalAbierto}
+                onClose={() => setModalAbierto(false)}
+            />
+
         </div>
     )
 }
