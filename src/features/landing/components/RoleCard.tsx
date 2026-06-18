@@ -21,7 +21,7 @@ export const RoleCard = ({ icono, titulo, descripcion, to }: Props) => {
 
             <h2 className="text-xl font-bold text-gray-800 mb-2">{titulo}</h2>
 
-            <p className="text-gray-500 text-sm mb-6 flex-grow">{descripcion}</p>
+            <p className="text-gray-500 text-sm mb-6 grow">{descripcion}</p>
 
             <button className="text-purple-600 font-semibold hover:text-purple-800 transition-colors">
                 Ingresar →
