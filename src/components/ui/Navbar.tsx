@@ -13,7 +13,7 @@ export const Navbar = () => {
     ];
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-10 bg-white/90 backdrop-blur-sm shadow-md px-4 py-3">
+        <nav className="fixed top-0 left-0 right-0 z-10 bg-white shadow-md px-4 py-3">
             <div className="max-w-7xl mx-auto flex items-center justify-between relative">
                 <div className="text-lg font-bold text-purple-700">
                     Devoluciones CLQ
