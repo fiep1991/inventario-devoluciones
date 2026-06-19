@@ -5,7 +5,7 @@ export const MainLayout = () => {
     return (
         <div className="min-h-screen flex flex-col">
             {/* Fondo fijo */}
-            <div className="fixed inset-0 -z-10 bg-gradient-to-br from-purple-900 via-purple-700 to-purple-500 md:bg-cover md:bg-center md:bg-[url('/src/assets/img/fondo-tablet.png')] lg:bg-cover lg:bg-center lg:bg-[url('/src/assets/img/fondo.png')]" />
+            <div className="fixed inset-0 -z-10 bg-gradient-to-br from-purple-900 via-purple-700 to-purple-500 md:bg-fixed md:bg-cover md:bg-center md:bg-[url('/src/assets/img/fondo-tablet.png')] lg:bg-fixed lg:bg-cover lg:bg-center lg:bg-[url('/src/assets/img/fondo.png')]" />
 
             <Navbar />
 
