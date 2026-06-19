@@ -1,14 +1,28 @@
 import { Outlet } from "react-router-dom";
 import { Navbar } from "../components/ui/Navbar";
+import fondoDesktop from "../assets/img/fondo.png";
+import fondoTablet from "../assets/img/fondo-tablet.png";
 
 export const MainLayout = () => {
     return (
-        <div className="min-h-screen flex flex-col">
-            {/* Fondo fijo */}
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-900 via-purple-700 to-purple-500">
+            {/* Fondo para tablet */}
             <div 
-                className="fixed inset-0 -z-10"
-                style={{
-                    backgroundImage: "url('/src/assets/img/fondo.png')",
+                className="fixed inset-0 -z-10 hidden md:block bg-cover bg-center bg-no-repeat"
+                style={{ 
+                    backgroundImage: `url(${fondoTablet})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundAttachment: "fixed",
+                    backgroundRepeat: "no-repeat"
+                }}
+            />
+            
+            {/* Fondo para desktop */}
+            <div 
+                className="fixed inset-0 -z-10 hidden lg:block bg-cover bg-center bg-no-repeat"
+                style={{ 
+                    backgroundImage: `url(${fondoDesktop})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundAttachment: "fixed",
