@@ -3,9 +3,28 @@ import { Navbar } from "../components/ui/Navbar";
 
 export const MainLayout = () => {
     return (
-        <div className="min-h-screen flex flex-col">
-            {/* Fondo fijo */}
-            <div className="fixed inset-0 -z-10 bg-gradient-to-br from-purple-900 via-purple-700 to-purple-500 md:bg-fixed md:bg-cover md:bg-center md:bg-[url('/src/assets/img/fondo-tablet.png')] lg:bg-fixed lg:bg-cover lg:bg-center lg:bg-[url('/src/assets/img/fondo.png')]" />
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-900 via-purple-700 to-purple-500">
+            {/* Fondo como imagen solo en tablet y desktop */}
+            <div 
+                className="fixed inset-0 -z-10 hidden md:block"
+                style={{
+                    backgroundImage: "url('/src/assets/img/fondo-tablet.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundAttachment: "scroll"
+                }}
+            />
+            <div 
+                className="fixed inset-0 -z-10 hidden lg:block"
+                style={{
+                    backgroundImage: "url('/src/assets/img/fondo.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundAttachment: "scroll"
+                }}
+            />
 
             <Navbar />
 
