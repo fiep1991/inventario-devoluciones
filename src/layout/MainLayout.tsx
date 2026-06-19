@@ -14,7 +14,7 @@ export const MainLayout = () => {
         >
             <Navbar />
 
-            <div className="flex-1 flex items-center justify-center p-4 pt-16 md:pt-20">
+            <div className="flex-1 flex items-center justify-center p-4 pt-12 md:pt-16">
                 <div className="w-full max-w-7xl">
                     <Outlet />
                 </div>
