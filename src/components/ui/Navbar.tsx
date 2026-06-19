@@ -6,6 +6,7 @@ export const Navbar = () => {
     const [menuAbierto, setMenuAbierto] = useState(false);
 
     const links = [
+        { to: '/', label: 'Inicio' },
         { to: '/recepcion', label: 'Recepción' },
         { to: '/coordinador', label: 'Coordinador' },
         { to: '/calidad', label: 'Calidad' },

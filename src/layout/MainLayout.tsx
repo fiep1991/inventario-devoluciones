@@ -14,15 +14,14 @@ export const MainLayout = () => {
                 " />
             </div>
 
-            {/* Navbar fijo */}
             <Navbar />
 
-            {/* Contenido con padding superior para que no quede tapado */}
-            <div className="flex-1 flex items-center justify-center p-4 pt-20">
+            
+            <div className="flex-1 flex items-center justify-center p-4 pt-16 md:pt-20">
                 <div className="w-full max-w-7xl">
                     <Outlet />
                 </div>
             </div>
         </div>
     );
-};
+}

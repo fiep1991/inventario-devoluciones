@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme{
+:root {
   /* colores */
     --color-morado: #a35fc1;
     --color-gris: #565656;

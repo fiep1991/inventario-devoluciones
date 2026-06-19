@@ -1,5 +1,6 @@
 import { Dialog, DialogPanel, DialogTitle, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Devolucion {
     id: number;
@@ -17,9 +18,22 @@ interface Props {
     devolucion: Devolucion | null;
     isOpen: boolean;
     onClose: () => void;
+    onSave: (id: number, data: Partial<Devolucion>) => void;
 }
 
-export const ModalDevolucion = ({ devolucion, isOpen, onClose }: Props) => {
+export const ModalDevolucion = ({ devolucion, isOpen, onClose, onSave }: Props) => {
+    const [editedData, setEditedData] = useState<Partial<Devolucion>>({});
+
+    useEffect(() => {
+        if (devolucion) {
+            setEditedData(devolucion);
+        }
+    }, [devolucion]);
+
+    const handleChange = (field: keyof Devolucion, value: string | number) => {
+        setEditedData((prev) => ({ ...prev, [field]: value }));
+    };
+
     if (!devolucion) return null;
 
     return (
@@ -32,50 +46,114 @@ export const ModalDevolucion = ({ devolucion, isOpen, onClose }: Props) => {
                             className="w-full max-w-2xl rounded-xl bg-white p-6 shadow-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
                         >
                             <DialogTitle as="h3" className="text-xl font-bold text-gray-800 mb-4">
-                                Detalle de Devolución
+                                Editar Devolución
                             </DialogTitle>
-                            
+
                             <div className="grid grid-cols-2 gap-4">
+                                {/* Fecha */}
                                 <div>
                                     <label className="text-sm text-gray-500">Fecha</label>
-                                    <p className="font-medium">{devolucion.fecha}</p>
+                                    <input
+                                        type="date"
+                                        value={editedData.fecha || ''}
+                                        onChange={(e) => handleChange('fecha', e.target.value)}
+                                        className="w-full border rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-purple-500"
+                                    />
                                 </div>
+
+                                {/* Cliente */}
                                 <div>
                                     <label className="text-sm text-gray-500">Cliente</label>
-                                    <p className="font-medium">{devolucion.cliente}</p>
+                                    <input
+                                        type="text"
+                                        value={editedData.cliente || ''}
+                                        onChange={(e) => handleChange('cliente', e.target.value)}
+                                        className="w-full border rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-purple-500"
+                                    />
                                 </div>
+
+                                {/* Producto */}
                                 <div>
                                     <label className="text-sm text-gray-500">Producto</label>
-                                    <p className="font-medium">{devolucion.producto}</p>
+                                    <input
+                                        type="text"
+                                        value={editedData.producto || ''}
+                                        onChange={(e) => handleChange('producto', e.target.value)}
+                                        className="w-full border rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-purple-500"
+                                    />
                                 </div>
+
+                                {/* Código */}
                                 <div>
                                     <label className="text-sm text-gray-500">Código</label>
-                                    <p className="font-medium">{devolucion.codigo}</p>
+                                    <input
+                                        type="text"
+                                        value={editedData.codigo || ''}
+                                        onChange={(e) => handleChange('codigo', e.target.value)}
+                                        className="w-full border rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-purple-500"
+                                    />
                                 </div>
+
+                                {/* Lote */}
                                 <div>
                                     <label className="text-sm text-gray-500">Lote</label>
-                                    <p className="font-medium">{devolucion.lote}</p>
+                                    <input
+                                        type="text"
+                                        value={editedData.lote || ''}
+                                        onChange={(e) => handleChange('lote', e.target.value)}
+                                        className="w-full border rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-purple-500"
+                                    />
                                 </div>
+
+                                {/* Estado */}
                                 <div>
                                     <label className="text-sm text-gray-500">Estado</label>
-                                    <p className="font-medium">{devolucion.estado}</p>
+                                    <input
+                                        type="text"
+                                        value={editedData.estado || ''}
+                                        onChange={(e) => handleChange('estado', e.target.value)}
+                                        className="w-full border rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-purple-500"
+                                    />
                                 </div>
+
+                                {/* Cantidad */}
                                 <div>
                                     <label className="text-sm text-gray-500">Cantidad</label>
-                                    <p className="font-medium">{devolucion.cantidad}</p>
+                                    <input
+                                        type="number"
+                                        value={editedData.cantidad || 0}
+                                        onChange={(e) => handleChange('cantidad', parseInt(e.target.value) || 0)}
+                                        className="w-full border rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-purple-500"
+                                    />
                                 </div>
+
+                                {/* Observaciones (ocupa 2 columnas) */}
                                 <div className="col-span-2">
                                     <label className="text-sm text-gray-500">Observaciones</label>
-                                    <p className="font-medium">{devolucion.observaciones || 'Sin observaciones'}</p>
+                                    <textarea
+                                        value={editedData.observaciones || ''}
+                                        onChange={(e) => handleChange('observaciones', e.target.value)}
+                                        rows={3}
+                                        className="w-full border rounded-lg px-2 py-1 text-sm focus:ring-2 focus:ring-purple-500"
+                                    />
                                 </div>
                             </div>
 
-                            <div className="mt-6 flex justify-end">
+                            <div className="mt-6 flex justify-end gap-3">
                                 <button
                                     onClick={onClose}
-                                    className="inline-flex items-center gap-2 rounded-md bg-gray-200 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-300 transition-colors"
+                                    className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition-colors"
                                 >
-                                    Cerrar
+                                    Cancelar
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        onSave(devolucion.id, editedData);
+                                        onClose();
+                                    }}
+                                    className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors"
+                                >
+                                    Guardar Cambios
                                 </button>
                             </div>
                         </DialogPanel>
