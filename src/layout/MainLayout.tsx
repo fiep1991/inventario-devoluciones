@@ -11,7 +11,6 @@ export const MainLayout = () => {
                     backgroundImage: "url('/img/fondo-tablet.png')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    backgroundAttachment: "fixed",
                     backgroundRepeat: "no-repeat"
                 }}
             />
@@ -23,7 +22,6 @@ export const MainLayout = () => {
                     backgroundImage: "url('/img/fondo.png')",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    backgroundAttachment: "fixed",
                     backgroundRepeat: "no-repeat"
                 }}
             />
