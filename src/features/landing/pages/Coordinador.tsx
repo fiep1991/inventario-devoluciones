@@ -17,11 +17,10 @@ type Devolucion = {
 };
 
 export const Coordinador = () => {
-
     const queryClient = useQueryClient();
-
     const [modalAbierto, setModalAbierto] = useState(false);
     const [devolucionSeleccionada, setDevolucionSeleccionada] = useState<any>(null);
+    const [filtro, setFiltro] = useState('');
 
     const { data, isPending, error } = useQuery({
         queryKey: ['devoluciones', 'recepcion'],
@@ -53,73 +52,154 @@ export const Coordinador = () => {
     };
 
     if (isPending) {
-        return <div className="p-8 text-3xl">Cargando las devoluciones...</div>;
+        return <div className="p-8 text-xl font-medium text-neutral-500 flex items-center gap-3">
+            <i className="ti ti-loader-2 animate-spin text-2xl"></i>
+            Cargando las devoluciones...
+        </div>;
     }
 
     if (error) {
-        return <div className="p-8 text-2xl text-red-600">Error al cargar las Devoluciones</div>;
+        return <div className="p-8 text-xl text-red-600 bg-red-50 rounded-xl border border-red-100">
+            Error al cargar las Devoluciones
+        </div>;
     }
 
-    const devoluciones = data?.data || [];
+    const devoluciones = (data?.data || []).filter((dev: Devolucion) => 
+        dev.cliente.toLowerCase().includes(filtro.toLowerCase()) ||
+        dev.producto.toLowerCase().includes(filtro.toLowerCase()) ||
+        dev.lote.includes(filtro)
+    );
 
     return (
-        <div className="bg-[#C4C4C4] rounded-2xl shadow-xl/30 p-8 w-auto min-h-auto">
-            <h1 className="text-3xl font-bold mb-4">Coordinador de Transporte</h1>
-            <p className="text-gray-600 mb-4">Revisa y edita los datos de las devoluciones antes de verificarlas</p>
-
-            {devoluciones.length === 0 ? (
-                <p>No hay devoluciones pendientes de verificación</p>
-            ) : (
-                <div className="overflow-x-auto">
-                    <table className="w-full border-collapse bg-white rounded-lg shadow">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="p-3 text-left text-sm">Fecha</th>
-                                <th className="p-3 text-left text-sm">Cliente</th>
-                                <th className="p-3 text-left text-sm">Producto</th>
-                                <th className="p-3 text-left text-sm">Código</th>
-                                <th className="p-3 text-left text-sm">Lote</th>
-                                <th className="p-3 text-left text-sm">Estado</th>
-                                <th className="p-3 text-left text-sm">Cantidad</th>
-                                <th className="p-3 text-left text-sm">Observaciones</th>
-                                <th className="p-3 text-left text-sm">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {devoluciones.map((dev: Devolucion) => (
-                                <tr
-                                    key={dev.id}
-                                    onClick={(e) => {
-                                        if (e.target instanceof HTMLElement && e.target.closest('button')) {
-                                            return;
-                                        }
-                                        abrirModal(dev);
-                                    }}
-                                    className="border-b hover:bg-gray-50 transition-colors cursor-pointer"
-                                >
-                                    <td className="p-2 text-sm">{formatearFecha(dev.fecha)}</td>
-                                    <td className="p-2 text-sm">{dev.cliente}</td>
-                                    <td className="p-2 text-sm">{dev.producto}</td>
-                                    <td className="p-2 text-sm">{dev.codigo}</td>
-                                    <td className="p-2 text-sm">{dev.lote}</td>
-                                    <td className="p-2 text-sm">{dev.estado}</td>
-                                    <td className="p-2 text-sm">{dev.cantidad}</td>
-                                    <td className="p-2 text-sm truncate max-w-30">{dev.observaciones}</td>
-                                    <td className="p-2 text-sm">
-                                        <button
-                                            onClick={() => verifyMutation.mutate(dev.id)}
-                                            disabled={verifyMutation.isPending}
-                                            className="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition-colors disabled:opacity-50"
-                                        >
-                                            {verifyMutation.isPending ? 'Verificando...' : 'Verificar'}
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+        <div className="space-y-8">
+            {/* Page Header */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h1 className="text-3xl font-bold text-neutral-900">Coordinador de Transporte</h1>
+                    <p className="text-neutral-500 mt-1">Revisa y edita los datos de las devoluciones antes de verificarlas.</p>
                 </div>
-            )}
+                <div className="flex gap-4">
+                    <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm flex items-center gap-4 min-w-[200px]">
+                        <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
+                            <i className="ti ti-clock-pause text-xl"></i>
+                        </div>
+                        <div>
+                            <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider">Pendientes</p>
+                            <p className="text-xl font-bold text-neutral-900">{devoluciones.length}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Table Card */}
+            <div className="bg-white rounded-xl border border-neutral-200 shadow-sm overflow-hidden">
+                {/* Toolbar */}
+                <div className="border-b border-neutral-200 bg-neutral-50/50 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex gap-1 bg-neutral-200/50 p-1 rounded-lg w-fit">
+                        <button className="px-4 py-1.5 text-sm font-semibold rounded-md bg-white text-neutral-900 shadow-sm">
+                            Coordinación
+                        </button>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                        <div className="relative">
+                            <i className="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"></i>
+                            <input 
+                                type="text" 
+                                placeholder="Buscar devolución..." 
+                                value={filtro}
+                                onChange={(e) => setFiltro(e.target.value)}
+                                className="pl-10 pr-4 py-2 bg-white border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-morado/20 focus:border-morado outline-none w-full md:w-64 transition-all"
+                            />
+                        </div>
+                        <button className="flex items-center gap-2 px-3 py-2 border border-neutral-300 rounded-lg text-sm font-medium text-neutral-600 bg-white hover:bg-neutral-50">
+                            <i className="ti ti-filter"></i>
+                            Filtros
+                        </button>
+                    </div>
+                </div>
+
+                {/* Table */}
+                <div className="overflow-x-auto">
+                    {devoluciones.length === 0 ? (
+                        <div className="p-20 text-center">
+                            <i className="ti ti-package-off text-5xl text-neutral-200 mb-4 block"></i>
+                            <p className="text-neutral-500 font-medium">No hay devoluciones pendientes de verificación</p>
+                        </div>
+                    ) : (
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-neutral-50 border-b border-neutral-200">
+                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Fecha</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Cliente</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Producto / Código</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Lote</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Cantidad</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Estado</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-neutral-200">
+                                {devoluciones.map((dev: Devolucion, index: number) => (
+                                    <tr 
+                                        key={dev.id}
+                                        className={`${index % 2 === 0 ? 'bg-white' : 'bg-neutral-50/30'} hover:bg-neutral-50 transition-colors group cursor-pointer`}
+                                        onClick={(e) => {
+                                            if (e.target instanceof HTMLElement && e.target.closest('button')) return;
+                                            abrirModal(dev);
+                                        }}
+                                    >
+                                        <td className="px-6 py-4">
+                                            <p className="text-sm font-semibold text-neutral-900">{formatearFecha(dev.fecha)}</p>
+                                        </td>
+                                        <td className="px-6 py-4 text-sm text-neutral-700 font-medium">
+                                            {dev.cliente}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <p className="text-sm font-medium text-neutral-700">{dev.producto}</p>
+                                            <p className="text-[11px] font-mono text-neutral-400 mt-0.5">SKU: {dev.codigo}</p>
+                                        </td>
+                                        <td className="px-6 py-4 text-sm text-neutral-500 font-mono">
+                                            {dev.lote}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className="text-sm font-bold text-neutral-800">{dev.cantidad}</span>
+                                            <span className="text-[10px] text-neutral-400 ml-1">unid.</span>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700">
+                                                <span className="w-1 h-1 rounded-full bg-amber-500"></span>
+                                                En Recepción
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            <div className="flex justify-end gap-2">
+                                                <button 
+                                                    onClick={() => abrirModal(dev)}
+                                                    className="p-2 text-neutral-400 hover:text-morado hover:bg-morado/5 rounded-lg transition-all"
+                                                >
+                                                    <i className="ti ti-edit text-lg"></i>
+                                                </button>
+                                                <button 
+                                                    onClick={() => verifyMutation.mutate(dev.id)}
+                                                    disabled={verifyMutation.isPending}
+                                                    className="px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-lg hover:bg-emerald-600 transition-colors shadow-sm disabled:opacity-50"
+                                                >
+                                                    {verifyMutation.isPending ? '...' : 'Verificar'}
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
+
+                {/* Footer */}
+                <div className="px-6 py-4 bg-neutral-50 border-t border-neutral-200 flex items-center justify-between">
+                    <p className="text-xs text-neutral-500">Mostrando <span className="font-semibold">{devoluciones.length}</span> resultados</p>
+                </div>
+            </div>
 
             <ModalDevolucion
                 devolucion={devolucionSeleccionada}

@@ -4,20 +4,25 @@ interface Props {
     etiqueta: string;
     tipo: string;
     id: string;
-    placeholder?: string;
+    placeholder: string;
     className?: string;
+    register?: UseFormRegisterReturn;
+    error?: boolean;
     accept?: string;
     multiple?: boolean;
-    register: UseFormRegisterReturn;
-    error?: boolean;
 }
 
-export const Inputs = ({ etiqueta, tipo, id, placeholder, className, accept, multiple, register, error }: Props) => {
+export const Inputs = ({ etiqueta, tipo, id, placeholder, className, register, error, accept, multiple }: Props) => {
+    const baseInputStyles = `w-full h-11 bg-gray-50 border ${error ? 'border-red-500' : 'border-gray-200'} rounded-lg px-4 text-sm text-gray-700 outline-none focus:bg-white focus:border-morado focus:ring-4 focus:ring-morado/10 transition-all`;
+
     return (
-        <div className={`${className || ''}`}>
+        <div className={`space-y-1.5 ${className}`}>
             {etiqueta && (
-                <label htmlFor={id} className="block text-gray-700 font-medium text-sm mb-0">
-                    {etiqueta}:
+                <label 
+                    htmlFor={id} 
+                    className="text-[11px] font-bold uppercase tracking-wider text-gray-400 ml-1"
+                >
+                    {etiqueta}
                 </label>
             )}
             
@@ -25,29 +30,39 @@ export const Inputs = ({ etiqueta, tipo, id, placeholder, className, accept, mul
                 <textarea
                     id={id}
                     placeholder={placeholder}
-                    className={`w-full px-2 py-1.5 border ${error ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-sm`}
-                    rows={2}
+                    className={`${baseInputStyles} h-32 py-3 resize-none`}
                     {...register}
                 />
             ) : tipo === 'file' ? (
-                <div className="flex justify-center w-full">
+                <div className="relative group">
                     <input
                         type="file"
                         id={id}
                         accept={accept}
                         multiple={multiple}
-                        className={`w-full px-2 py-1.5 border ${error ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-sm file:mr-2 file:py-0.5 file:px-2 file:rounded-lg file:border-0 file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 text-center`}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         {...register}
                     />
+                    <div className="w-full h-24 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center gap-2 bg-gray-50 group-hover:bg-white group-hover:border-morado transition-all">
+                        <i className="ti ti-camera text-2xl text-gray-400 group-hover:text-morado"></i>
+                        <span className="text-xs font-medium text-gray-500 group-hover:text-morado">
+                            Click o arrastre para subir imágenes
+                        </span>
+                    </div>
                 </div>
             ) : (
-                <input
-                    type={tipo}
-                    id={id}
-                    placeholder={placeholder}
-                    className={`w-full px-2 py-1.5 border ${error ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-sm`}
-                    {...register}
-                />
+                <div className="relative group">
+                    <input
+                        type={tipo}
+                        id={id}
+                        placeholder={placeholder}
+                        className={baseInputStyles}
+                        {...register}
+                    />
+                    {tipo === 'date' && (
+                        <i className="ti ti-calendar absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none group-focus-within:text-morado"></i>
+                    )}
+                </div>
             )}
         </div>
     );

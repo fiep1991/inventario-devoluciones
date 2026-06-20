@@ -1,11 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css');
 @import "tailwindcss";
 
-:root {
-  /* colores */
-    --color-morado: #a35fc1;
-    --color-gris: #565656;
-    --color-lila: #9c9aee;
-    --color-naranja: #f27405;
-    --color-neutral: #f2f2f2;
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  
+  /* Colores de Marca */
+  --color-morado: #a35fc1;
+  --color-gris: #565656;
+  --color-lila: #9c9aee;
+  --color-naranja: #f27405;
+  --color-app-bg: #f2f2f2;
+}
 
+body {
+  @apply bg-app-bg text-gris font-sans;
 }
