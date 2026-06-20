@@ -79,7 +79,7 @@ export const Coordinador = () => {
                     <p className="text-neutral-500 mt-1">Revisa y edita los datos de las devoluciones antes de verificarlas.</p>
                 </div>
                 <div className="flex gap-4">
-                    <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm flex items-center gap-4 min-w-[200px]">
+                    <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm flex items-center gap-4 min-w-50">
                         <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">
                             <i className="ti ti-clock-pause text-xl"></i>
                         </div>

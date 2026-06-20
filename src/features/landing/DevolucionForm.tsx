@@ -130,7 +130,7 @@ export const DevolucionForm = () => {
 
                 {/* Form Content */}
                 <div className="flex-1">
-                    <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-8 min-h-[400px] flex flex-col">
+                    <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-8 min-h-100 flex flex-col">
                         <form className="space-y-8 flex-1" onSubmit={handleSubmit(onSubmit)}>
                             
                             {/* Step 1: General Info */}

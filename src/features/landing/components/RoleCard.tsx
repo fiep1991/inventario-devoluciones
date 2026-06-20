@@ -7,7 +7,7 @@ interface Props {
     to: string;
 }
 
-export const RoleCard = ({ icono, titulo, descripcion, to }: Props) => {
+export const RoleCard = ({titulo, descripcion, to }: Props) => {
     const navigate = useNavigate();
 
     // Map existing image icons to Tabler Icons names for the Enterprise look
