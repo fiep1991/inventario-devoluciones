@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-    icono: string;
     titulo: string;
     descripcion: string;
     to: string;
 }
 
-export const RoleCard = ({titulo, descripcion, to }: Props) => {
+export const RoleCard = ({ titulo, descripcion, to }: Props) => {
     const navigate = useNavigate();
 
     // Map existing image icons to Tabler Icons names for the Enterprise look

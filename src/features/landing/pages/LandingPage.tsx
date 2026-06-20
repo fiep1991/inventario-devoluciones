@@ -28,7 +28,6 @@ export const LandingPage = () => {
                 {roles.map((rol) => (
                     <RoleCard
                         key={rol.id}
-                        icono={rol.icono}
                         titulo={rol.titulo}
                         descripcion={rol.descripcion}
                         to={rol.ruta}
