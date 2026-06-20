@@ -51,6 +51,58 @@
       "imagenes": {},
       "etapa": "recepcion",
       "id": "pwy8-Sm3OxI"
+    },
+    {
+      "fecha": "2026-06-10",
+      "cliente": "curtiembres",
+      "producto": "acido sulfanilico",
+      "codigo": "001.0000226",
+      "lote": "20100002953",
+      "cantidad": 5,
+      "estado": "mal estado",
+      "imagenes": {},
+      "observaciones": "",
+      "etapa": "recepcion",
+      "id": "LLJh8wGffvk"
+    },
+    {
+      "fecha": "2026-06-18",
+      "cliente": "curtiembres",
+      "producto": "acido sulfanilico",
+      "codigo": "001.0000226",
+      "lote": "20100002953",
+      "cantidad": 7,
+      "estado": "mal estado",
+      "imagenes": {},
+      "observaciones": "",
+      "etapa": "recepcion",
+      "id": "Ft-OfZyN1Wg"
+    },
+    {
+      "fecha": "2026-06-08",
+      "cliente": "colombian",
+      "producto": "acido sulfanilico",
+      "codigo": "001.0000226",
+      "lote": "20100002953",
+      "cantidad": 5,
+      "estado": "2552256",
+      "imagenes": {},
+      "observaciones": "",
+      "etapa": "recepcion",
+      "id": "ZLMkeAjI5R0"
+    },
+    {
+      "fecha": "2026-06-04",
+      "cliente": "colombian",
+      "producto": "acido sulfanilico",
+      "codigo": "001.0000216",
+      "lote": "20100002953",
+      "cantidad": 4,
+      "estado": "mal estado",
+      "imagenes": {},
+      "observaciones": "asfrrqw",
+      "etapa": "recepcion",
+      "id": "0Fg8CkPs2BY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -18,11 +18,11 @@ export const Navbar = () => {
                 
                 {/* Logo Section */}
                 <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-morado text-white">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
                         <i className="ti ti-box text-xl"></i>
                     </div>
-                    <span className="text-xl font-bold tracking-tight text-neutral-800">
-                        Logi<span className="text-morado">Flow</span>
+                    <span className="text-xl font-bold tracking-tight text-secondary">
+                        Color<span className="text-primary">Química</span>
                     </span>
                 </div>
 
@@ -34,8 +34,8 @@ export const Navbar = () => {
                             to={link.to}
                             className={`h-full inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-all ${
                                 location.pathname === link.to
-                                    ? 'border-morado text-neutral-900'
-                                    : 'border-transparent text-neutral-500 hover:border-neutral-300 hover:text-neutral-700'
+                                    ? 'border-primary text-secondary'
+                                    : 'border-transparent text-neutral-500 hover:border-neutral-300 hover:text-secondary'
                             }`}
                         >
                             {link.label}
@@ -45,11 +45,11 @@ export const Navbar = () => {
 
                 {/* Right Side / User Profile */}
                 <div className="flex items-center gap-4">
-                    <button className="relative rounded-full p-2 text-neutral-400 hover:bg-neutral-50 hover:text-morado transition-all">
+                    <button className="relative rounded-full p-2 text-neutral-400 hover:bg-neutral-50 hover:text-primary transition-all">
                         <i className="ti ti-bell text-xl"></i>
                         <span className="absolute top-2 right-2 flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-naranja opacity-75"></span>
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-naranja"></span>
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
                         </span>
                     </button>
                     
@@ -57,10 +57,10 @@ export const Navbar = () => {
                     
                     <div className="hidden sm:flex items-center gap-3 cursor-pointer group">
                         <div className="text-right">
-                            <p className="text-xs font-semibold text-neutral-800">Usuario LogiFlow</p>
+                            <p className="text-xs font-semibold text-secondary">Usuario</p>
                             <p className="text-[10px] text-neutral-500 uppercase tracking-wider font-medium">Operador</p>
                         </div>
-                        <div className="h-9 w-9 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-morado group-hover:border-morado transition-all">
+                        <div className="h-9 w-9 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-primary group-hover:border-primary transition-all">
                             <i className="ti ti-user text-lg"></i>
                         </div>
                     </div>
@@ -68,7 +68,7 @@ export const Navbar = () => {
                     {/* Botón hamburguesa */}
                     <button
                         onClick={() => setMenuAbierto(!menuAbierto)}
-                        className="md:hidden text-neutral-500 hover:text-morado p-2"
+                        className="md:hidden text-neutral-500 hover:text-primary p-2"
                     >
                         <i className={`ti ti-${menuAbierto ? 'x' : 'menu-2'} text-2xl`}></i>
                     </button>
@@ -84,7 +84,7 @@ export const Navbar = () => {
                                 onClick={() => setMenuAbierto(false)}
                                 className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                                     location.pathname === link.to
-                                        ? 'bg-morado/10 text-morado'
+                                        ? 'bg-primary/10 text-primary'
                                         : 'text-neutral-600 hover:bg-neutral-50'
                                 }`}
                             >

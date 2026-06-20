@@ -74,7 +74,7 @@ export const Calidad = () => {
             {/* Page Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-neutral-900">Control de Calidad</h1>
+                    <h1 className="text-3xl font-bold text-secondary">Control de Calidad</h1>
                     <p className="text-neutral-500 mt-1">Realiza la inspección final y define el destino de los productos.</p>
                 </div>
                 <div className="flex gap-4">
@@ -84,7 +84,7 @@ export const Calidad = () => {
                         </div>
                         <div>
                             <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider">En Inspección</p>
-                            <p className="text-xl font-bold text-neutral-900">{devoluciones.length}</p>
+                            <p className="text-xl font-bold text-secondary">{devoluciones.length}</p>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@ export const Calidad = () => {
                 {/* Toolbar */}
                 <div className="border-b border-neutral-200 bg-neutral-50/50 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex gap-1 bg-neutral-200/50 p-1 rounded-lg w-fit">
-                        <button className="px-4 py-1.5 text-sm font-semibold rounded-md bg-white text-neutral-900 shadow-sm">
+                        <button className="px-4 py-1.5 text-sm font-semibold rounded-md bg-white text-secondary shadow-sm">
                             Calidad
                         </button>
                     </div>
@@ -107,7 +107,7 @@ export const Calidad = () => {
                                 placeholder="Buscar devolución..." 
                                 value={filtro}
                                 onChange={(e) => setFiltro(e.target.value)}
-                                className="pl-10 pr-4 py-2 bg-white border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-morado/20 focus:border-morado outline-none w-full md:w-64 transition-all"
+                                className="pl-10 pr-4 py-2 bg-white border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none w-full md:w-64 transition-all"
                             />
                         </div>
                     </div>
@@ -140,7 +140,7 @@ export const Calidad = () => {
                                         className={`${index % 2 === 0 ? 'bg-white' : 'bg-neutral-50/30'} hover:bg-neutral-50 transition-colors`}
                                     >
                                         <td className="px-6 py-4">
-                                            <p className="text-sm font-semibold text-neutral-900">#LT-{dev.lote.slice(-4)}</p>
+                                            <p className="text-sm font-semibold text-secondary">#LT-{dev.lote.slice(-4)}</p>
                                             <p className="text-[11px] text-neutral-400 mt-0.5">{formatearFecha(dev.fecha)}</p>
                                         </td>
                                         <td className="px-6 py-4 text-sm text-neutral-700 font-medium">
@@ -151,7 +151,7 @@ export const Calidad = () => {
                                             <p className="text-[11px] font-mono text-neutral-400 mt-0.5">SKU: {dev.codigo}</p>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className="text-sm font-bold text-neutral-800">{dev.cantidad}</span>
+                                            <span className="text-sm font-bold text-secondary">{dev.cantidad}</span>
                                             <span className="text-[10px] text-neutral-400 ml-1">unid.</span>
                                         </td>
                                         <td className="px-6 py-4">
@@ -162,7 +162,7 @@ export const Calidad = () => {
                                         </td>
                                         <td className="px-6 py-4">
                                             <select 
-                                                className="w-full h-9 bg-gray-50 border border-gray-200 rounded-lg px-2 text-xs text-gray-700 outline-none focus:bg-white focus:border-morado transition-all"
+                                                className="w-full h-9 bg-gray-50 border border-gray-200 rounded-lg px-2 text-xs text-gray-700 outline-none focus:bg-white focus:border-primary transition-all"
                                                 value={disposiciones[dev.id] || ''}
                                                 onChange={(e) => handleDisposicionChange(dev.id, e.target.value)}
                                             >
@@ -177,7 +177,7 @@ export const Calidad = () => {
                                             <button 
                                                 onClick={() => handleFinalize(dev.id)}
                                                 disabled={!disposiciones[dev.id] || finalizeMutation.isPending}
-                                                className="px-3 py-1.5 bg-morado text-white text-xs font-bold rounded-lg hover:bg-morado/90 transition-colors shadow-sm disabled:opacity-30"
+                                                className="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition-colors shadow-sm disabled:opacity-30"
                                             >
                                                 {finalizeMutation.isPending ? '...' : 'Finalizar'}
                                             </button>

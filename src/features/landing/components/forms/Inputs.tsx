@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const Inputs = ({ etiqueta, tipo, id, placeholder, className, register, error, accept, multiple }: Props) => {
-    const baseInputStyles = `w-full h-11 bg-gray-50 border ${error ? 'border-red-500' : 'border-gray-200'} rounded-lg px-4 text-sm text-gray-700 outline-none focus:bg-white focus:border-morado focus:ring-4 focus:ring-morado/10 transition-all`;
+    const baseInputStyles = `w-full h-11 bg-gray-50 border ${error ? 'border-red-500' : 'border-gray-200'} rounded-lg px-4 text-sm text-gray-700 outline-none focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all`;
 
     return (
         <div className={`space-y-1.5 ${className}`}>
@@ -43,9 +43,9 @@ export const Inputs = ({ etiqueta, tipo, id, placeholder, className, register, e
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         {...register}
                     />
-                    <div className="w-full h-24 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center gap-2 bg-gray-50 group-hover:bg-white group-hover:border-morado transition-all">
-                        <i className="ti ti-camera text-2xl text-gray-400 group-hover:text-morado"></i>
-                        <span className="text-xs font-medium text-gray-500 group-hover:text-morado">
+                    <div className="w-full h-24 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center gap-2 bg-gray-50 group-hover:bg-white group-hover:border-primary transition-all">
+                        <i className="ti ti-camera text-2xl text-gray-400 group-hover:text-primary"></i>
+                        <span className="text-xs font-medium text-gray-500 group-hover:text-primary">
                             Click o arrastre para subir imágenes
                         </span>
                     </div>
@@ -60,7 +60,7 @@ export const Inputs = ({ etiqueta, tipo, id, placeholder, className, register, e
                         {...register}
                     />
                     {tipo === 'date' && (
-                        <i className="ti ti-calendar absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none group-focus-within:text-morado"></i>
+                        <i className="ti ti-calendar absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none group-focus-within:text-primary"></i>
                     )}
                 </div>
             )}

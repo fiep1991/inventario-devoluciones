@@ -5,9 +5,9 @@ export const LandingPage = () => {
     // Note: These are example metrics for the demonstration of the Enterprise design.
     // In a real scenario, these would be fetched from an analytics endpoint.
     const stats = [
-        { label: "Total Recepciones", value: "158", color: "text-neutral-800" },
-        { label: "Pendientes Calidad", value: "12", color: "text-naranja" },
-        { label: "Procesados Hoy", value: "24", color: "text-neutral-800" },
+        { label: "Total Recepciones", value: "158", color: "text-secondary" },
+        { label: "Pendientes Calidad", value: "12", color: "text-primary" },
+        { label: "Procesados Hoy", value: "24", color: "text-secondary" },
         { label: "Eficiencia Operativa", value: "94.2%", color: "text-emerald-500" },
     ];
 
@@ -15,7 +15,7 @@ export const LandingPage = () => {
         <div className="space-y-12">
             {/* Header Section */}
             <div>
-                <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 sm:text-4xl">
+                <h1 className="text-3xl font-extrabold tracking-tight text-secondary sm:text-4xl">
                     Gestión de Inventario y Devoluciones
                 </h1>
                 <p className="mt-3 max-w-2xl text-lg text-neutral-500">

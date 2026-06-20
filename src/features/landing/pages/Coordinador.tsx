@@ -75,7 +75,7 @@ export const Coordinador = () => {
             {/* Page Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-neutral-900">Coordinador de Transporte</h1>
+                    <h1 className="text-3xl font-bold text-secondary">Coordinador de Transporte</h1>
                     <p className="text-neutral-500 mt-1">Revisa y edita los datos de las devoluciones antes de verificarlas.</p>
                 </div>
                 <div className="flex gap-4">
@@ -85,7 +85,7 @@ export const Coordinador = () => {
                         </div>
                         <div>
                             <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider">Pendientes</p>
-                            <p className="text-xl font-bold text-neutral-900">{devoluciones.length}</p>
+                            <p className="text-xl font-bold text-secondary">{devoluciones.length}</p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ export const Coordinador = () => {
                 {/* Toolbar */}
                 <div className="border-b border-neutral-200 bg-neutral-50/50 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div className="flex gap-1 bg-neutral-200/50 p-1 rounded-lg w-fit">
-                        <button className="px-4 py-1.5 text-sm font-semibold rounded-md bg-white text-neutral-900 shadow-sm">
+                        <button className="px-4 py-1.5 text-sm font-semibold rounded-md bg-white text-secondary shadow-sm">
                             Coordinación
                         </button>
                     </div>
@@ -108,7 +108,7 @@ export const Coordinador = () => {
                                 placeholder="Buscar devolución..." 
                                 value={filtro}
                                 onChange={(e) => setFiltro(e.target.value)}
-                                className="pl-10 pr-4 py-2 bg-white border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-morado/20 focus:border-morado outline-none w-full md:w-64 transition-all"
+                                className="pl-10 pr-4 py-2 bg-white border border-neutral-300 rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none w-full md:w-64 transition-all"
                             />
                         </div>
                         <button className="flex items-center gap-2 px-3 py-2 border border-neutral-300 rounded-lg text-sm font-medium text-neutral-600 bg-white hover:bg-neutral-50">
@@ -149,7 +149,7 @@ export const Coordinador = () => {
                                         }}
                                     >
                                         <td className="px-6 py-4">
-                                            <p className="text-sm font-semibold text-neutral-900">{formatearFecha(dev.fecha)}</p>
+                                            <p className="text-sm font-semibold text-secondary">{formatearFecha(dev.fecha)}</p>
                                         </td>
                                         <td className="px-6 py-4 text-sm text-neutral-700 font-medium">
                                             {dev.cliente}
@@ -162,7 +162,7 @@ export const Coordinador = () => {
                                             {dev.lote}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className="text-sm font-bold text-neutral-800">{dev.cantidad}</span>
+                                            <span className="text-sm font-bold text-secondary">{dev.cantidad}</span>
                                             <span className="text-[10px] text-neutral-400 ml-1">unid.</span>
                                         </td>
                                         <td className="px-6 py-4">
@@ -175,7 +175,7 @@ export const Coordinador = () => {
                                             <div className="flex justify-end gap-2">
                                                 <button 
                                                     onClick={() => abrirModal(dev)}
-                                                    className="p-2 text-neutral-400 hover:text-morado hover:bg-morado/5 rounded-lg transition-all"
+                                                    className="p-2 text-neutral-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-all"
                                                 >
                                                     <i className="ti ti-edit text-lg"></i>
                                                 </button>
