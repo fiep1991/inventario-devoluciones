@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import iconoRecepcion from '../components/assets/icons/icono-recepcion.png';
+import iconoCoordinador from '../components/assets/icons/icono-coordinador.png';
+import iconoCalidad from '../components/assets/icons/icono-calidad.png';
 
 interface Props {
     titulo: string;
@@ -9,13 +12,12 @@ interface Props {
 export const RoleCard = ({ titulo, descripcion, to }: Props) => {
     const navigate = useNavigate();
 
-    // Map existing image icons to Tabler Icons names for the Enterprise look
     const getIcon = (title: string) => {
-        switch (title.toLowerCase()) {
-            case 'recepción': return 'ti-truck-loading';
-            case 'coordinador': return 'ti-truck-delivery';
-            case 'control calidad': return 'ti-shield-check';
-            default: return 'ti-box';
+        switch (title) {
+            case 'Recepción': return iconoRecepcion;
+            case 'Coordinador Transporte': return iconoCoordinador;
+            case 'Control Calidad': return iconoCalidad;
+            default: return iconoRecepcion;
         }
     };
 
@@ -25,8 +27,12 @@ export const RoleCard = ({ titulo, descripcion, to }: Props) => {
             className="group relative flex flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-l-4 hover:border-l-primary hover:shadow-xl cursor-pointer"
         >
             <div className="p-8">
-                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-neutral-50 text-primary group-hover:bg-primary/10 transition-colors">
-                    <i className={`ti ${getIcon(titulo)} text-3xl`}></i>
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-neutral-50 group-hover:bg-primary/10 transition-colors">
+                    <img 
+                        src={getIcon(titulo)} 
+                        alt={titulo}
+                        className="h-20 w-20 object-contain"
+                    />
                 </div>
                 <h3 className="text-xl font-bold text-secondary">{titulo}</h3>
                 <p className="mt-4 text-sm leading-relaxed text-neutral-500">

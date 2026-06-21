@@ -6,24 +6,23 @@ export const Navbar = () => {
     const [menuAbierto, setMenuAbierto] = useState(false);
 
     const links = [
-        { to: '/', label: 'Dashboard' },
+        { to: '/', label: 'Menú principal' },
         { to: '/recepcion', label: 'Recepción' },
         { to: '/coordinador', label: 'Coordinador' },
         { to: '/calidad', label: 'Calidad' },
     ];
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-neutral-200 shadow-sm px-4">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-primary border-b border-neutral-200 shadow-sm px-4">
             <div className="max-w-7xl mx-auto flex items-center justify-between h-16 relative">
                 
                 {/* Logo Section */}
                 <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white">
-                        <i className="ti ti-box text-xl"></i>
-                    </div>
-                    <span className="text-xl font-bold tracking-tight text-secondary">
-                        Color<span className="text-primary">Química</span>
-                    </span>
+                    <img 
+                        src="/img/clq_logo_header_blanconeg.png" 
+                        alt="Colorquímica" 
+                        className="h-10 w-auto object-contain"
+                    />
                 </div>
 
                 {/* Menú desktop */}
@@ -34,8 +33,8 @@ export const Navbar = () => {
                             to={link.to}
                             className={`h-full inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-all ${
                                 location.pathname === link.to
-                                    ? 'border-primary text-secondary'
-                                    : 'border-transparent text-neutral-500 hover:border-neutral-300 hover:text-secondary'
+                                    ? 'border-primary text-white'
+                                    : 'border-transparent text-neutral-500 hover:border-white hover:text-secondary'
                             }`}
                         >
                             {link.label}
@@ -45,11 +44,11 @@ export const Navbar = () => {
 
                 {/* Right Side / User Profile */}
                 <div className="flex items-center gap-4">
-                    <button className="relative rounded-full p-2 text-neutral-400 hover:bg-neutral-50 hover:text-primary transition-all">
+                    <button className="relative rounded-full p-2 text-white hover:bg-neutral-50 hover:text-primary transition-all">
                         <i className="ti ti-bell text-xl"></i>
                         <span className="absolute top-2 right-2 flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span>
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
                         </span>
                     </button>
                     
@@ -57,7 +56,7 @@ export const Navbar = () => {
                     
                     <div className="hidden sm:flex items-center gap-3 cursor-pointer group">
                         <div className="text-right">
-                            <p className="text-xs font-semibold text-secondary">Usuario</p>
+                            <p className="text-xs font-semibold text-white">Usuario</p>
                             <p className="text-[10px] text-neutral-500 uppercase tracking-wider font-medium">Operador</p>
                         </div>
                         <div className="h-9 w-9 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center text-primary group-hover:border-primary transition-all">
@@ -68,7 +67,7 @@ export const Navbar = () => {
                     {/* Botón hamburguesa */}
                     <button
                         onClick={() => setMenuAbierto(!menuAbierto)}
-                        className="md:hidden text-neutral-500 hover:text-primary p-2"
+                        className="md:hidden text-white hover:text-secondary p-2"
                     >
                         <i className={`ti ti-${menuAbierto ? 'x' : 'menu-2'} text-2xl`}></i>
                     </button>
