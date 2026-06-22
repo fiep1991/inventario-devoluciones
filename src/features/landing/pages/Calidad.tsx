@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { devolucionesAPI } from "../../../services/api.index";
 import { useState } from 'react';
+import { ModalCalidad } from '../../../components/ui/ModalCalidad';
 
 type Devolucion = {
     id: number;
@@ -18,30 +19,30 @@ type Devolucion = {
 export const Calidad = () => {
     const queryClient = useQueryClient();
     const [filtro, setFiltro] = useState('');
+    const [modalAbierto, setModalAbierto] = useState(false);
+    const [devolucionSeleccionada, setDevolucionSeleccionada] = useState<Devolucion | null>(null);
+
     const { data, isPending, error } = useQuery({
         queryKey: ['devoluciones', 'coordinador'],
         queryFn: () => devolucionesAPI.getByetapa('coordinador')
     });
 
-    const [disposiciones, setDisposiciones] = useState<{ [key: number]: string }>({});
-
     const finalizeMutation = useMutation({
         mutationFn: ({ id, disposicion }: { id: number, disposicion: string }) => 
-            devolucionesAPI.update(String(id), { etapa: 'finalizado', disposicion }),
+            devolucionesAPI.update(String(id), { etapa: 'calidad', disposicion }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['devoluciones', 'coordinador'] });
+            setModalAbierto(false);
         },
     });
 
-    const handleDisposicionChange = (id: number, valor: string) => {
-        setDisposiciones(prev => ({ ...prev, [id]: valor }));
+    const handleFinalizar = (id: number, disposicion: string) => {
+        finalizeMutation.mutate({ id, disposicion });
     };
 
-    const handleFinalize = (id: number) => {
-        const disposicion = disposiciones[id];
-        if (disposicion) {
-            finalizeMutation.mutate({ id, disposicion });
-        }
+    const abrirModal = (devolucion: Devolucion) => {
+        setDevolucionSeleccionada(devolucion);
+        setModalAbierto(true);
     };
 
     const formatearFecha = (fechaISO: string) => {
@@ -78,7 +79,7 @@ export const Calidad = () => {
                     <p className="text-neutral-500 mt-1">Realiza la inspección final y define el destino de los productos.</p>
                 </div>
                 <div className="flex gap-4">
-                    <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm flex items-center gap-4 min-w-[200px]">
+                    <div className="bg-white p-4 rounded-xl border border-neutral-200 shadow-sm flex items-center gap-4 min-w-50">
                         <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
                             <i className="ti ti-microscope text-xl"></i>
                         </div>
@@ -129,7 +130,6 @@ export const Calidad = () => {
                                     <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Producto</th>
                                     <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Cantidad</th>
                                     <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Estado</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Disposición</th>
                                     <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider text-right">Acción</th>
                                 </tr>
                             </thead>
@@ -137,7 +137,8 @@ export const Calidad = () => {
                                 {devoluciones.map((dev: Devolucion, index: number) => (
                                     <tr 
                                         key={dev.id}
-                                        className={`${index % 2 === 0 ? 'bg-white' : 'bg-neutral-50/30'} hover:bg-neutral-50 transition-colors`}
+                                        className={`${index % 2 === 0 ? 'bg-white' : 'bg-neutral-50/30'} hover:bg-neutral-50 transition-colors cursor-pointer`}
+                                        onClick={() => abrirModal(dev)}
                                     >
                                         <td className="px-6 py-4">
                                             <p className="text-sm font-semibold text-secondary">#LT-{dev.lote.slice(-4)}</p>
@@ -157,29 +158,18 @@ export const Calidad = () => {
                                         <td className="px-6 py-4">
                                             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">
                                                 <span className="w-1 h-1 rounded-full bg-blue-500"></span>
-                                                En Calidad
+                                                {dev.estado}
                                             </span>
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <select 
-                                                className="w-full h-9 bg-gray-50 border border-gray-200 rounded-lg px-2 text-xs text-gray-700 outline-none focus:bg-white focus:border-primary transition-all"
-                                                value={disposiciones[dev.id] || ''}
-                                                onChange={(e) => handleDisposicionChange(dev.id, e.target.value)}
-                                            >
-                                                <option value="">Seleccionar...</option>
-                                                <option value="venta">Aprobado para Venta</option>
-                                                <option value="analisis">Análisis Profundo</option>
-                                                <option value="planta">Regreso a Planta</option>
-                                                <option value="proveedor">Devolución Proveedor</option>
-                                            </select>
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button 
-                                                onClick={() => handleFinalize(dev.id)}
-                                                disabled={!disposiciones[dev.id] || finalizeMutation.isPending}
-                                                className="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition-colors shadow-sm disabled:opacity-30"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    abrirModal(dev);
+                                                }}
+                                                className="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
                                             >
-                                                {finalizeMutation.isPending ? '...' : 'Finalizar'}
+                                                Inspeccionar
                                             </button>
                                         </td>
                                     </tr>
@@ -194,6 +184,14 @@ export const Calidad = () => {
                     <p className="text-xs text-neutral-500">Mostrando <span className="font-semibold">{devoluciones.length}</span> resultados</p>
                 </div>
             </div>
+
+            {/* Modal */}
+            <ModalCalidad
+                devolucion={devolucionSeleccionada}
+                isOpen={modalAbierto}
+                onClose={() => setModalAbierto(false)}
+                onFinalizar={handleFinalizar}
+            />
         </div>
     );
 };
