@@ -21,6 +21,7 @@ export const Calidad = () => {
     const [filtro, setFiltro] = useState('');
     const [modalAbierto, setModalAbierto] = useState(false);
     const [devolucionSeleccionada, setDevolucionSeleccionada] = useState<Devolucion | null>(null);
+    
 
     const { data, isPending, error } = useQuery({
         queryKey: ['devoluciones', 'coordinador'],
@@ -28,22 +29,27 @@ export const Calidad = () => {
     });
 
     const finalizeMutation = useMutation({
-        mutationFn: ({ id, disposicion }: { id: number, disposicion: string }) => 
-            devolucionesAPI.update(String(id), { etapa: 'calidad', disposicion }),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['devoluciones', 'coordinador'] });
-            setModalAbierto(false);
-        },
-    });
+    mutationFn: ({ id, ...data }: { id: number, etapa: string, disposicion: string, comentario?: string }) => 
+        devolucionesAPI.update(String(id), data),
+    onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['devoluciones', 'coordinador'] });
+        setModalAbierto(false);
+    },
+});
 
-    const handleFinalizar = (id: number, disposicion: string) => {
-        finalizeMutation.mutate({ id, disposicion });
-    };
+    const handleFinalizar = (id: number, disposicion: string, comentario?: string) => {
+    const data: any = { etapa: 'calidad', disposicion };
+    if (comentario) {
+        data.comentario = comentario;
+    }
+    finalizeMutation.mutate({ id, ...data });
+};
 
     const abrirModal = (devolucion: Devolucion) => {
         setDevolucionSeleccionada(devolucion);
         setModalAbierto(true);
     };
+
 
     const formatearFecha = (fechaISO: string) => {
         if (!fechaISO) return '';
@@ -125,49 +131,50 @@ export const Calidad = () => {
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-neutral-50 border-b border-neutral-200">
-                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Lote / Fecha</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Fecha</th>
                                     <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Cliente</th>
                                     <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Producto</th>
                                     <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Cantidad</th>
                                     <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider">Estado</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider text-right">Acción</th>
+                                    <th className="px-8 py-4 text-xs font-bold text-neutral-500 uppercase tracking-wider text-center">Acción</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-neutral-200">
                                 {devoluciones.map((dev: Devolucion, index: number) => (
-                                    <tr 
+                                    <tr
                                         key={dev.id}
-                                        className={`${index % 2 === 0 ? 'bg-white' : 'bg-neutral-50/30'} hover:bg-neutral-50 transition-colors cursor-pointer`}
-                                        onClick={() => abrirModal(dev)}
+                                        className={`${index % 2 === 0 ? 'bg-white' : 'bg-neutral-50/30'} hover:bg-neutral-50 transition-colors`}
                                     >
                                         <td className="px-6 py-4">
-                                            <p className="text-sm font-semibold text-secondary">#LT-{dev.lote.slice(-4)}</p>
-                                            <p className="text-[11px] text-neutral-400 mt-0.5">{formatearFecha(dev.fecha)}</p>
+                                            <p className="text-sm text-neutral-400 mt-0.5">{formatearFecha(dev.fecha)}</p>
                                         </td>
                                         <td className="px-6 py-4 text-sm text-neutral-700 font-medium">
                                             {dev.cliente}
                                         </td>
                                         <td className="px-6 py-4">
                                             <p className="text-sm font-medium text-neutral-700">{dev.producto}</p>
-                                            <p className="text-[11px] font-mono text-neutral-400 mt-0.5">SKU: {dev.codigo}</p>
+                                            <p className="text-sm font-mono text-neutral-400 mt-0.5">Código: {dev.codigo}</p>
+                                            <p className="text-sm font-mono text-neutral-400 mt-0.5">Lote: {dev.lote}</p>
                                         </td>
+                                        
                                         <td className="px-6 py-4">
                                             <span className="text-sm font-bold text-secondary">{dev.cantidad}</span>
-                                            <span className="text-[10px] text-neutral-400 ml-1">unid.</span>
+                                            <span className="text-[10px] text-neutral-400 ml-1">kg</span>
                                         </td>
+                            
                                         <td className="px-6 py-4">
                                             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">
                                                 <span className="w-1 h-1 rounded-full bg-blue-500"></span>
                                                 {dev.estado}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 text-right">
+                                        <td className="px-8 py-4 text-center">
                                             <button 
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     abrirModal(dev);
                                                 }}
-                                                className="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
+                                                className="px-2 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 hover:scale-105 hover:shadow-md transition-all duration-200 shadow-sm cursor-pointer"
                                             >
                                                 Inspeccionar
                                             </button>

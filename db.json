@@ -10,8 +10,10 @@
       "cantidad": 3,
       "observaciones": "afafga",
       "imagenes": [],
-      "etapa": "coordinador",
-      "id": "uakLffLvJns"
+      "etapa": "calidad",
+      "id": "uakLffLvJns",
+      "disposicion": "venta",
+      "comentario": "enviar a producto terminado"
     },
     {
       "fecha": "2026-04-03",
@@ -23,8 +25,9 @@
       "cantidad": 25,
       "observaciones": "hola, este es un cambio",
       "imagenes": {},
-      "etapa": "coordinador",
-      "id": "qodhrV_47OY"
+      "etapa": "calidad",
+      "id": "qodhrV_47OY",
+      "disposicion": "destruccion"
     },
     {
       "fecha": "2026-04-07",
@@ -36,7 +39,7 @@
       "cantidad": 5,
       "observaciones": "buen estado",
       "imagenes": {},
-      "etapa": "recepcion",
+      "etapa": "coordinador",
       "id": "w8TQuZBsuhA"
     },
     {
@@ -49,7 +52,7 @@
       "cantidad": 2,
       "observaciones": "sellado",
       "imagenes": {},
-      "etapa": "recepcion",
+      "etapa": "coordinador",
       "id": "pwy8-Sm3OxI"
     },
     {
@@ -62,7 +65,7 @@
       "estado": "mal estado",
       "imagenes": {},
       "observaciones": "",
-      "etapa": "recepcion",
+      "etapa": "coordinador",
       "id": "LLJh8wGffvk"
     },
     {

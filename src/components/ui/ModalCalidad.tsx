@@ -17,15 +17,17 @@ interface Props {
     devolucion: Devolucion | null;
     isOpen: boolean;
     onClose: () => void;
-    onFinalizar: (id: number, disposicion: string) => void;
+    onFinalizar: (id: number, disposicion: string, comentario?: string) => void;
 }
 
 export const ModalCalidad = ({ devolucion, isOpen, onClose, onFinalizar }: Props) => {
     const [disposicion, setDisposicion] = useState('');
+    const [comentario, setComentario] = useState('');
 
     useEffect(() => {
         if (devolucion) {
             setDisposicion('');
+            setComentario('');
         }
     }, [devolucion]);
 
@@ -36,6 +38,8 @@ export const ModalCalidad = ({ devolucion, isOpen, onClose, onFinalizar }: Props
         const [anio, mes, dia] = fechaISO.split('-');
         return `${dia}/${mes}/${anio}`;
     };
+
+    const mostrarComentario = disposicion !== '';
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
@@ -107,7 +111,7 @@ export const ModalCalidad = ({ devolucion, isOpen, onClose, onFinalizar }: Props
                                     </p>
                                 </div>
 
-                                {/* Observaciones (ocupa 2 columnas) */}
+                                {/* Observaciones */}
                                 <div className="col-span-2">
                                     <label className="text-sm text-gray-500">Observaciones</label>
                                     <div className="bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-100">
@@ -115,7 +119,7 @@ export const ModalCalidad = ({ devolucion, isOpen, onClose, onFinalizar }: Props
                                     </div>
                                 </div>
 
-                                {/* Disposición (ocupa 2 columnas) */}
+                                {/* Disposición */}
                                 <div className="col-span-2 mt-2">
                                     <label className="text-sm text-gray-700 font-medium block mb-1">
                                         Disposición Final *
@@ -131,6 +135,22 @@ export const ModalCalidad = ({ devolucion, isOpen, onClose, onFinalizar }: Props
                                         <option value="destruccion">Enviar a NO CONFORME</option>
                                     </select>
                                 </div>
+
+                                {/* Comentario (opcional) */}
+                                {mostrarComentario && (
+                                    <div className="col-span-2 mt-2">
+                                        <label className="text-sm text-gray-700 font-medium block mb-1">
+                                            Comentario <span className="text-gray-400 text-xs font-normal">(opcional)</span>
+                                        </label>
+                                        <textarea
+                                            value={comentario}
+                                            onChange={(e) => setComentario(e.target.value)}
+                                            rows={3}
+                                            placeholder="Agrega un comentario sobre la disposición..."
+                                            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all resize-y"
+                                        />
+                                    </div>
+                                )}
                             </div>
 
                             <div className="mt-6 flex justify-end gap-3">
@@ -143,7 +163,7 @@ export const ModalCalidad = ({ devolucion, isOpen, onClose, onFinalizar }: Props
                                 <button
                                     onClick={() => {
                                         if (disposicion) {
-                                            onFinalizar(devolucion.id, disposicion);
+                                            onFinalizar(devolucion.id, disposicion, comentario);
                                             onClose();
                                         }
                                     }}

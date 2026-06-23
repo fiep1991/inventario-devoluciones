@@ -4,6 +4,7 @@ import { MainLayout } from "../layout/MainLayout"
 import { Coordinador } from "../features/landing/pages/Coordinador"
 import { Recepcion } from "../features/landing/pages/Recepcion"
 import { Calidad } from "../features/landing/pages/Calidad"
+import { DevolucionesFinalizadas } from '../features/landing/pages/DevolucionesFinalizadas'
 
 
 export const router = createBrowserRouter([
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
                 path: "/calidad",
                 element: <Calidad /> 
             },
+            {
+                path: '/finalizadas',
+                element: <DevolucionesFinalizadas />,
+            }
         ]
     }
 ])

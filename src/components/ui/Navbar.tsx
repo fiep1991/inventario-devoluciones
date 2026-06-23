@@ -10,6 +10,7 @@ export const Navbar = () => {
         { to: '/recepcion', label: 'Recepción' },
         { to: '/coordinador', label: 'Coordinador' },
         { to: '/calidad', label: 'Calidad' },
+        { to: '/finalizadas', label: 'Finalizadas' },
     ];
 
     return (

@@ -5,7 +5,7 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   
-  /* Colores Colorquímica */
+  /* Colores Colorquimica */
   --color-primary: #ff8200;    /* Naranja Principal */
   --color-secondary: #4e4d50;  /* Gris Oscuro / Texto */
   --color-accent: #a35fc1;     /* Púrpura de acento (Certificaciones) */
